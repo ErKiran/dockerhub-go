@@ -65,3 +65,19 @@ func (s *RepositoriesService) EditRepository(ctx context.Context, namespace, rep
 
 	return res, nil
 }
+
+// GetRepository gets details for a given repository.
+func (s *RepositoriesService) GetRepository(ctx context.Context, namespace, repo string) (*Repository, error) {
+	slug := s.buildRepoSlug(namespace, repo)
+	req, err := s.client.NewRequest(http.MethodGet, slug, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &Repository{}
+	if err := s.client.Do(ctx, req, res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
