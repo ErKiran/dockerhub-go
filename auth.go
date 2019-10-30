@@ -33,7 +33,9 @@ func (s *AuthService) Login(ctx context.Context, username, password string) erro
 	}
 
 	res := &LoginResponse{}
-	s.client.Do(ctx, req, res)
+	if err := s.client.Do(ctx, req, res); err != nil {
+		return err
+	}
 
 	if len(res.Token) == 0 {
 		return errors.New("Did not recieve token")

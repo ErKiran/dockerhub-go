@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 )
 
@@ -26,7 +27,8 @@ type Client struct {
 
 	common service
 
-	Auth *AuthService
+	Auth         *AuthService
+	Repositories *RepositoriesService
 }
 
 // NewClient returns a new Dockerhub client. If an httpClient is not
@@ -40,11 +42,12 @@ func NewClient(httpClient *http.Client) *Client {
 
 	c := &Client{
 		httpClient: httpClient,
-		UserAgent:  defaultAPIBaseURL,
+		UserAgent:  defaultUserAgent,
 		BaseURL:    baseURL,
 	}
 	c.common.client = c
 	c.Auth = (*AuthService)(&c.common)
+	c.Repositories = (*RepositoriesService)(&c.common)
 	return c
 }
 
@@ -89,7 +92,6 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) error
 // BaseURL.
 func (c *Client) NewRequest(method, url string, body interface{}) (*http.Request, error) {
 	u, err := c.BaseURL.Parse(defaultAPIBaseEndpoint + url)
-	fmt.Println("url", u, u.String())
 	if err != nil {
 		return nil, err
 	}
@@ -118,5 +120,7 @@ func (c *Client) NewRequest(method, url string, body interface{}) (*http.Request
 	}
 
 	req.Header.Set("User-Agent", c.UserAgent)
+	debug, _ := httputil.DumpRequestOut(req, true)
+	fmt.Println(string(debug))
 	return req, nil
 }
