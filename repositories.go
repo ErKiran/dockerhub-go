@@ -25,9 +25,18 @@ type RepositoryPrivacyPatch struct {
 // RepositoryPermissions specifies the permissions of the requesting user
 // to the given Repository.
 type RepositoryPermissions struct {
-	Read  bool `type:"read"`
-	Write bool `type:"Write"`
-	Admin bool `type:"Admin"`
+	Read  bool `json:"read"`
+	Write bool `json:"write"`
+	Admin bool `json:"admin"`
+}
+
+// RepositoryList represents a list of repositories with pagination details.
+type RepositoryList struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+
+	Results []Repository `json:"results"`
 }
 
 // Repository represents a Dockerhub repository.
@@ -102,4 +111,19 @@ func (s *RepositoriesService) SetRepositoryPrivacy(ctx context.Context, namespac
 		return err
 	}
 	return nil
+}
+
+// GetRepositories gets all repositories from a given Dockerhub namespace.
+func (s *RepositoriesService) GetRepositories(ctx context.Context, namespace string) (*RepositoryList, error) {
+	slug := fmt.Sprintf("/repositories/%s/", namespace)
+	req, err := s.client.NewRequest(http.MethodGet, slug, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &RepositoryList{}
+	if err := s.client.Do(ctx, req, res); err != nil {
+		return nil, err
+	}
+	return res, nil
 }
