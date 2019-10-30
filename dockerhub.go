@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
 )
 
@@ -120,7 +119,5 @@ func (c *Client) NewRequest(method, url string, body interface{}) (*http.Request
 	}
 
 	req.Header.Set("User-Agent", c.UserAgent)
-	debug, _ := httputil.DumpRequestOut(req, true)
-	fmt.Println(string(debug))
 	return req, nil
 }

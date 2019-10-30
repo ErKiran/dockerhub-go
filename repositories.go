@@ -16,6 +16,12 @@ type RepositoryPatch struct {
 	Description     string `json:"description,omitempty"`
 }
 
+// RepositoryPrivacyPatch represents payload to patch a Repository's
+// privacy mode.
+type RepositoryPrivacyPatch struct {
+	IsPrivate bool `json:"is_private"`
+}
+
 // RepositoryPermissions specifies the permissions of the requesting user
 // to the given Repository.
 type RepositoryPermissions struct {
@@ -80,4 +86,20 @@ func (s *RepositoriesService) GetRepository(ctx context.Context, namespace, repo
 	}
 
 	return res, nil
+}
+
+// SetRepositoryPrivacy sets the privacy status of a repository.
+func (s *RepositoriesService) SetRepositoryPrivacy(ctx context.Context, namespace, repo string, isPrivate bool) error {
+	slug := s.buildRepoSlug(namespace, repo) + "privacy/"
+	req, err := s.client.NewRequest(http.MethodPost, slug, &RepositoryPrivacyPatch{
+		IsPrivate: isPrivate,
+	})
+	if err != nil {
+		return err
+	}
+
+	if err := s.client.Do(ctx, req, nil); err != nil {
+		return err
+	}
+	return nil
 }
