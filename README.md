@@ -1,4 +1,4 @@
-# dockerhub-go
+# dockerhub-go [![Build Status][travis-ci-badge]][travis-ci] [![GoDoc][godoc-badge]][godoc]
 
 > A Dockerhub client for Go
 
@@ -22,4 +22,10 @@ client.SetAuthToken(os.Getenv("DOCKERHUB_API_TOKEN"))
 
 ## License
 
-MIT &copy; 2019 [Charles Kenney](https://github.com/charliekenney23)
+MIT &copy; 2019 [Charles Kenney][profile]
+
+[travis-ci-badge]: https://travis-ci.org/Charliekenney23/dockerhub-go.svg?branch=master
+[travis-ci]: https://travis-ci.org/Charliekenney23/dockerhub-go
+[godoc-badge]: https://godoc.org/github.com/Charliekenney23/dockerhub-go?status.svg
+[godoc]: https://godoc.org/github.com/Charliekenney23/dockerhub-go
+[profile]: https://github.com/charliekenney23
