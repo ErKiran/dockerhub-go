@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-// CheckResponse checks a given HTTP response for errors and returns
+// checkResponse checks a given HTTP response for errors and returns
 // them if present.
-func CheckResponse(r *http.Response) error {
+func checkResponse(r *http.Response) error {
 	status := r.StatusCode
 	if status >= 200 && status <= 299 {
 		return nil

@@ -77,7 +77,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*htt
 	}
 	defer resp.Body.Close()
 
-	if err := CheckResponse(resp); err != nil {
+	if err := checkResponse(resp); err != nil {
 		return nil, err
 	}
 
