@@ -62,29 +62,29 @@ func (c *Client) SetAuthToken(token string) {
 
 // Do sends an API request and returns the API response. The API response is JSON
 // decoded and stored in the value pointed to by v.
-func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) error {
+func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*http.Response, error) {
 	req = req.WithContext(ctx)
 	resp, err := c.httpClient.Do(req)
 
 	if err != nil {
 		select {
 		case <-ctx.Done():
-			return ctx.Err()
+			return nil, ctx.Err()
 		default:
 		}
 
-		return err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if err := CheckResponse(resp); err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(v); err != nil && err != io.EOF {
-		return err
+		return nil, err
 	}
-	return nil
+	return resp, nil
 }
 
 // NewRequest creates an API request. The given URL is relative to the Client's

@@ -74,7 +74,7 @@ func (s *RepositoriesService) EditRepository(ctx context.Context, namespace, rep
 	}
 
 	res := &Repository{}
-	if err := s.client.Do(ctx, req, res); err != nil {
+	if _, err := s.client.Do(ctx, req, res); err != nil {
 		return nil, err
 	}
 
@@ -90,7 +90,7 @@ func (s *RepositoriesService) GetRepository(ctx context.Context, namespace, repo
 	}
 
 	res := &Repository{}
-	if err := s.client.Do(ctx, req, res); err != nil {
+	if _, err := s.client.Do(ctx, req, res); err != nil {
 		return nil, err
 	}
 
@@ -107,7 +107,7 @@ func (s *RepositoriesService) SetRepositoryPrivacy(ctx context.Context, namespac
 		return err
 	}
 
-	if err := s.client.Do(ctx, req, nil); err != nil {
+	if _, err := s.client.Do(ctx, req, nil); err != nil {
 		return err
 	}
 	return nil
@@ -122,7 +122,7 @@ func (s *RepositoriesService) GetRepositories(ctx context.Context, namespace str
 	}
 
 	res := &RepositoryList{}
-	if err := s.client.Do(ctx, req, res); err != nil {
+	if _, err := s.client.Do(ctx, req, res); err != nil {
 		return nil, err
 	}
 	return res, nil

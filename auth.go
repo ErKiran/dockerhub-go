@@ -33,7 +33,7 @@ func (s *AuthService) Login(ctx context.Context, username, password string) erro
 	}
 
 	res := &LoginResponse{}
-	if err := s.client.Do(ctx, req, res); err != nil {
+	if _, err := s.client.Do(ctx, req, res); err != nil {
 		return err
 	}
 
