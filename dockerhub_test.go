@@ -1,7 +1,9 @@
 package dockerhub
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -17,6 +19,8 @@ func assertBody(t *testing.T, req *http.Request, want string) {
 		t.Errorf("Error reading request body: %v", err)
 	}
 	if got := string(b); want != got {
+		fmt.Printf("got `%s`\n\n", got)
+		fmt.Printf("want `%s`\n\n", want)
 		t.Errorf("req.Body is %s; want %s", got, want)
 	}
 }
@@ -83,9 +87,11 @@ func makeMockClient() (client *Client, mux *http.ServeMux, teardown func()) {
 
 // mustJSONMarshal marshals a value to JSON or panics.
 func mustJSONMarshal(v interface{}) []byte {
-	b, err := json.Marshal(v)
-	if err != nil {
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(v); err != nil {
 		panic(err)
 	}
-	return b
+	return buf.Bytes()
 }
