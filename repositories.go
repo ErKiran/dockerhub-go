@@ -95,7 +95,6 @@ func (s *RepositoriesService) CreateRepository(ctx context.Context, namespace, n
 	}
 
 	req, err := s.client.NewRequest(http.MethodPost, url, repo)
-
 	if err != nil {
 		return nil, err
 	}
