@@ -69,7 +69,6 @@ func (c *Client) SetAuthToken(token string) {
 func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*http.Response, error) {
 	req = req.WithContext(ctx)
 	resp, err := c.httpClient.Do(req)
-
 	if err != nil {
 		select {
 		case <-ctx.Done():
