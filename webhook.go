@@ -35,6 +35,7 @@ type Webhook struct {
 func (s WebhookService) buildWebhookSlug(namespace, repo string) string {
 	return fmt.Sprintf("/repositories/%s/%s/webhook_pipeline/", namespace, repo)
 }
+
 func (s *WebhookService) CreateWebhook(ctx context.Context, namespace, repo, name, url string) (*Webhook, error) {
 	slug := s.buildWebhookSlug(namespace, repo)
 
@@ -50,7 +51,6 @@ func (s *WebhookService) CreateWebhook(ctx context.Context, namespace, repo, nam
 	})
 
 	req, err := s.client.NewRequest(http.MethodPost, slug, hook)
-
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,6 @@ func (s *WebhookService) GetWebhooks(ctx context.Context, namespace, repo string
 	slug := s.buildWebhookSlug(namespace, repo)
 
 	req, err := s.client.NewRequest(http.MethodGet, slug, nil)
-
 	if err != nil {
 		return nil, err
 	}
