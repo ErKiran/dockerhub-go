@@ -38,7 +38,7 @@ func (s *AuthService) Login(ctx context.Context, username, password string) erro
 	}
 
 	if len(res.Token) == 0 {
-		return errors.New("Did not recieve token")
+		return errors.New("did not recieve token")
 	}
 
 	s.client.SetAuthToken(res.Token)
