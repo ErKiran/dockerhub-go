@@ -31,6 +31,7 @@ type Client struct {
 	User         *UserService
 	Webhook      *WebhookService
 	Organization *OrganizationService
+	Tag          *TagService
 }
 
 // NewClient returns a new Dockerhub client. If an httpClient is not
@@ -53,6 +54,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.User = (*UserService)(&c.common)
 	c.Webhook = (*WebhookService)(&c.common)
 	c.Organization = (*OrganizationService)(&c.common)
+	c.Tag = (*TagService)(&c.common)
 	return c
 }
 
