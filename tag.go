@@ -44,7 +44,7 @@ type Tags struct {
 }
 
 func (s *TagService) GetTags(ctx context.Context, namespace, repo string, page int) (*Tags, error) {
-	slug := fmt.Sprintf("/repositories/%v/%v/?page_size=%d&ordering=last_updated", namespace, repo, page)
+	slug := fmt.Sprintf("/repositories/%v/%v/tags/?page_size=%d&ordering=last_updated", namespace, repo, page)
 
 	req, err := s.client.NewRequest(http.MethodGet, slug, nil)
 	if err != nil {
