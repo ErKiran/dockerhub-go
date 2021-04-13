@@ -77,3 +77,19 @@ func (s *WebhookService) GetWebhooks(ctx context.Context, namespace, repo string
 	}
 	return res, nil
 }
+
+func (s *WebhookService) DeleteWebhook(ctx context.Context, namespace, repo, name string) error {
+	slug := s.buildWebhookSlug(namespace, repo)
+
+	webhookURL := fmt.Sprintf("%s%s/", slug, name)
+
+	req, err := s.client.NewRequest(http.MethodDelete, webhookURL, nil)
+
+	if err != nil {
+		return err
+	}
+	if _, err := s.client.Do(ctx, req, nil); err != nil {
+		return err
+	}
+	return nil
+}
