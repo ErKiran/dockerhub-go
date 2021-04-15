@@ -17,7 +17,7 @@ func TestWebhookService_CreateWebhook(t *testing.T) {
 	name := "name"
 	url := "https://www.ngrok.com/re78rt/hook"
 
-	hook := &Webhook{}
+	hook := &WebhookResponse{}
 
 	uri := fmt.Sprintf("/repositories/%s/%s/", namespace, repo)
 
@@ -37,7 +37,7 @@ func TestWebhookService_CreateWebhook(t *testing.T) {
 		)))
 
 		w.WriteHeader(http.StatusCreated)
-		w.Write(mustJSONMarshal(&Webhook{}))
+		w.Write(mustJSONMarshal(&WebhookResponse{}))
 	})
 
 	res, err := client.Webhook.CreateWebhook(context.Background(), namespace, repo, name, url)
@@ -57,7 +57,7 @@ func TestWebhookService_GetWebhooks(t *testing.T) {
 	namespace := "namespace"
 	repo := "repo"
 
-	hook := &Webhook{}
+	hook := &WebhookResponse{}
 
 	uri := fmt.Sprintf("/repositories/%s/%s/", namespace, repo)
 	mux.HandleFunc(uri, func(w http.ResponseWriter, r *http.Request) {
