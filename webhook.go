@@ -27,9 +27,7 @@ type Webhook struct {
 	Name                string     `json:"name"`
 	Slug                string     `json:"slug"`
 	ExpectFinalCallback bool       `json:"expect_final_callback"`
-	Webhooks            []Webhooks `json:"webhooks"`
-	Created             time.Time  `json:"created"`
-	LastUpdated         time.Time  `json:"last_updated"`
+	Webhooks            []Webhooks `json:"results"`
 }
 
 func (s WebhookService) buildWebhookSlug(namespace, repo string) string {
