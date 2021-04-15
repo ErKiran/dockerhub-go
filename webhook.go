@@ -24,10 +24,11 @@ type WebhookRequest struct {
 }
 
 type Webhook struct {
-	Name                string     `json:"name"`
-	Slug                string     `json:"slug"`
-	ExpectFinalCallback bool       `json:"expect_final_callback"`
-	Webhooks            []Webhooks `json:"results"`
+	Count               int         `json:"count"`
+	Next                interface{} `json:"next"`
+	Previous            interface{} `json:"previous"`
+	ExpectFinalCallback bool        `json:"expect_final_callback"`
+	Webhooks            []Webhooks  `json:"results"`
 }
 
 func (s WebhookService) buildWebhookSlug(namespace, repo string) string {
