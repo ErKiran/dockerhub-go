@@ -49,7 +49,7 @@ type OrganizationList struct {
 	} `json:"results"`
 }
 
-// CreateOrganization
+// CreateOrganization Create new Organization
 func (s *OrganizationService) CreateOrganization(ctx context.Context, organization, company string) (*Organization, error) {
 	url := "/orgs/"
 	org := CreateOrganizationRequest{
