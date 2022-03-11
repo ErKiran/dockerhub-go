@@ -42,7 +42,7 @@ jobs:
     - name: Unit tests
       run: | 
             go test ./... -coverprofile coverage.out -covermode count
-            go tool cover -func covergae.out   
+            go tool cover -func coverage.out   
 
     - name: Covergae Gate 
       env:
