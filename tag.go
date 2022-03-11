@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// TageService Type
+// TagService Type
 type TagService service
 
 // Tags response
