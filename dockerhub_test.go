@@ -31,17 +31,6 @@ func hasHeader(req *http.Request, name string) bool {
 	return ok
 }
 
-// assertHeader asserts that a given header is present and equal
-// to the given value.
-func assertHeader(t *testing.T, req *http.Request, name, want string) {
-	if !hasHeader(req, name) {
-		t.Errorf(`No header "%s" present`, name)
-	}
-	if got := req.Header.Get(name); got != want {
-		t.Errorf(`req.Header["%s"] is %s; want %s`, name, got, want)
-	}
-}
-
 // assertNoHeader asserts that a given header is not present in the
 // http.Request.
 func assertNoHeader(t *testing.T, req *http.Request, name string) {

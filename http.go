@@ -13,5 +13,5 @@ func checkResponse(r *http.Response) error {
 		return nil
 	}
 
-	return fmt.Errorf("Request failed with status %d", status)
+	return fmt.Errorf("request failed with status %d", status)
 }
