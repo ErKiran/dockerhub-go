@@ -7,8 +7,10 @@ import (
 	"time"
 )
 
+// TageService Type
 type TagService service
 
+// Tags response
 type Tags struct {
 	Count    int         `json:"count"`
 	Next     interface{} `json:"next"`
@@ -43,6 +45,7 @@ type Tags struct {
 	} `json:"results"`
 }
 
+// GetTags of the repo
 func (s *TagService) GetTags(ctx context.Context, namespace, repo string, page int) (*Tags, error) {
 	slug := fmt.Sprintf("/repositories/%v/%v/tags/?page_size=%d&ordering=last_updated", namespace, repo, page)
 

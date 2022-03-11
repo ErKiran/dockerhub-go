@@ -6,8 +6,10 @@ import (
 	"time"
 )
 
+//UserService type
 type UserService service
 
+// User response json data
 type User struct {
 	ID            string    `json:"id"`
 	Username      string    `json:"username"`
@@ -23,6 +25,7 @@ type User struct {
 	Type          string    `json:"type"`
 }
 
+// GetLoggedInUser get the current user logged in to docker hub
 func (s *UserService) GetLoggedInUser(ctx context.Context) (*User, error) {
 	url := "/user/"
 

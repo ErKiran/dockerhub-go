@@ -7,13 +7,16 @@ import (
 	"time"
 )
 
+// OrganizationService Type Service
 type OrganizationService service
 
+// CreateOrganizationRequest struct
 type CreateOrganizationRequest struct {
 	Orgname string `json:"orgname"`
 	Company string `json:"company"`
 }
 
+// Organization struct
 type Organization struct {
 	ID            string    `json:"id"`
 	Orgname       string    `json:"orgname"`
@@ -27,6 +30,7 @@ type Organization struct {
 	Type          string    `json:"type"`
 }
 
+// OrganizationList Struct
 type OrganizationList struct {
 	Count    int         `json:"count"`
 	Next     interface{} `json:"next"`
@@ -45,7 +49,7 @@ type OrganizationList struct {
 	} `json:"results"`
 }
 
-// Create organizations
+// CreateOrganizations
 func (s *OrganizationService) CreateOrganization(ctx context.Context, organization, company string) (*Organization, error) {
 	url := "/orgs/"
 	org := CreateOrganizationRequest{
@@ -67,7 +71,7 @@ func (s *OrganizationService) CreateOrganization(ctx context.Context, organizati
 	return res, nil
 }
 
-// Get all organizations of user
+// GetOrganizations all organizations of user
 func (s *OrganizationService) GetOrganizations(ctx context.Context, pageSize int) (*OrganizationList, error) {
 	slug := fmt.Sprintf("/user/orgs/?page_size=%d", pageSize)
 	req, err := s.client.NewRequest(http.MethodGet, slug, nil)

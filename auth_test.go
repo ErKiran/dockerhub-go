@@ -50,7 +50,7 @@ func TestAuthService_Login_NoToken(t *testing.T) {
 		t.Errorf("Auth.Login succeeded without getting token response")
 	}
 
-	want := "Did not recieve token"
+	want := "did not recieve token"
 	if got := err.Error(); got != want {
 		t.Errorf(`Auth.Login error "%s"; want "%s"`, got, want)
 	}

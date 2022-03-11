@@ -61,6 +61,7 @@ type Repository struct {
 	Permissions RepositoryPermissions `json:"repository_permissions"`
 }
 
+// CreateRepositoryRequest is request payload to create Repository
 type CreateRepositoryRequest struct {
 	Namespace     string        `json:"namespace"`
 	Registry      string        `json:"registry"`
