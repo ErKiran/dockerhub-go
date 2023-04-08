@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -13,11 +13,15 @@ import (
 
 // assertBody asserts that the body of a given request is equal
 // to the given string.
+
 func assertBody(t *testing.T, req *http.Request, want string) {
-	b, err := ioutil.ReadAll(req.Body)
+	defer req.Body.Close()
+
+	b, err := io.ReadAll(req.Body)
 	if err != nil {
 		t.Errorf("Error reading request body: %v", err)
 	}
+
 	if got := string(b); want != got {
 		fmt.Printf("got `%s`\n\n", got)
 		fmt.Printf("want `%s`\n\n", want)
